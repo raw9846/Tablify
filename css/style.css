@@ -1,0 +1,149 @@
+/* ==== Navbar ================================================= */
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* make the UL a horizontal flex row */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* each LI becomes inline, links stay styled the same */
+.navbar li {
+  margin: 0;
+}
+
+/* push “Sign In/Register” to the right */
+.navbar .auth {
+  margin-left: 78%;
+}
+
+/* link styling */
+.navbar a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+/* === Menu Card ==================================== */
+.menu-card {
+  /* contain our float */
+  overflow: hidden;
+  position: relative;
+  padding: 1rem;
+  border-left: 70px solid #d4edda;
+  border-right: 70px solid #d4edda;
+  background-color: #ffffff; 
+  border-radius: 0.5rem;
+}
+
+/* shrink the price text and float it right */
+.menu-card .price {
+  float: right;           /* push to the right */
+  font-size: 2em;       /* smaller than your h2 */
+  color: #666;            /* slightly muted */
+  margin: 0 0 0;     /* a little breathing room at the top */
+}
+
+/* make sure the food name starts cleanly on the left */
+.menu-card h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 2.5em;
+}
+
+/* === recipe card =============================*/
+.recipe-card {
+  /* contain our float */
+  overflow: hidden;
+  position: relative;
+  padding: 1rem;
+  border-left: 70px solid #d4edda;
+  border-right: 70px solid #d4edda;
+  background-color: #ffffff; 
+  border-radius: 0.5rem;  
+}
+
+.recipe-card h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.recipe-card ul li {
+  font-size: 1.2rem;       
+  margin-bottom: 0.25rem;  
+  color: #555;            
+}
+
+
+/* ======= ingredients card =============================*/
+.ingredients-card {
+  /* contain our float */
+  overflow: hidden;
+  position: relative;
+  padding: 1rem;
+  border-left: 70px solid #d4edda;
+  border-right: 70px solid #d4edda;
+  background-color: #ffffff; 
+  border-radius: 0.5rem;  
+}
+
+.ingredients-card h1 {
+  margin: 0;
+  padding: 0;
+}
+
+/* ========= tables card =================================*/
+.tables-card {
+  /* contain our float */
+  overflow: hidden;
+  position: relative;
+  padding: 1rem;
+  border-left: 70px solid #d4edda;
+  border-right: 70px solid #d4edda;
+  background-color: #ffffff; 
+  border-radius: 0.5rem;  
+}
+
+.tables-card h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.tables-card ul li {
+  font-size: 1.2rem;       
+  margin-bottom: 0.25rem;  
+  color: #555;            
+}
+
+/* site-wide background */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #d4edda; /* light-green */
+}
+
+h1.title {
+  text-align: center; 
+  color: rgb(41, 61, 39);        
+  font-size: 3em;      
+}
+
+button.menuedit {
+  display: block;        /* makes margin auto work */
+  margin-left: 92.8%;     /* pushes it as far right as possible */
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+}
