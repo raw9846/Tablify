@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Restaurant Management</title>
+  <!-- Link to your static CSS file -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <!-- Navigation (update hrefs as needed) -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="{{ url_for('menu_page') }}">Menu</a></li>
+      <li><a href="{{ url_for('recipes_page') }}">Recipes</a></li>
+      <li><a href="{{ url_for('ingredients_page') }}">Ingredients</a></li>
+      <li><a href="{{ url_for('tables_page') }}">Tables</a></li>
+      <li class="auth"><a href="{{ url_for('signin_page') }}">Sign In</a></li>
+      <li><a href="{{ url_for('register_page') }}">Register</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <h1 class="title">Our Menu</h1>
+    <button class="menuedit">Edit</button>
+
+    <div class="menu-grid">
+      {% for item in items %}
+        <div class="menu-card">
+          <!-- Make sure these keys match your SQL columns or aliases -->
+          <h1>{{ item.Name }}</h1>
+          <p class="price">${{ '%.2f'|format(item.Price) }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </main>
+</body>
+</html>
+
+</html>

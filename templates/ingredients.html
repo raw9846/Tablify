@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Restaurant Management</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="{{ url_for('menu_page') }}">Menu</a></li>
+      <li><a href="{{ url_for('recipes_page') }}">Recipes</a></li>
+      <li><a href="{{ url_for('ingredients_page') }}">Ingredients</a></li>
+      <li><a href="{{ url_for('tables_page') }}">Tables</a></li>
+      <li class="auth"><a href="{{ url_for('signin_page') }}">Sign In</a></li>
+      <li><a href="{{ url_for('register_page') }}">Register</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <h1 class="title">Inventory Management</h1>
+    <div class="ingredients-grid">
+      {% for ingredient in ingredients %}
+        <div class="ingredients-card">
+          <h1>{{ ingredient.Name }}</h1>
+          <!-- Inventory count on the right -->
+          <p class="count">Inventory Count: {{ ingredient.NumInventory }}</p>
+          <ul>
+            <li>Supplier: {{ ingredient.SupplierName }}</li>
+          </ul>
+          <button>Stock Up</button>
+        </div>
+      {% endfor %}
+    </div>
+  </main>
+</body>
+</html>

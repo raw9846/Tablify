@@ -8,7 +8,7 @@ try:
         password="",  # If you set a password, put it here
         database="restaurant"
     )
-    print("✅ Connection successful!")
+    print("Connection successful!")
     conn.close()
 except mysql.connector.Error as err:
-    print("❌ Connection error:", err)
+    print("Connection error:", err)
