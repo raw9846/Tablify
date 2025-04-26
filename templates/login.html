@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+  
   <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: #fff;
+    }
+  </style>
 </head>
 <body>
-  <h2>Login to Your Account</h2>
+  
+  <img src="{{ url_for('static', filename='images/Logo.jpg') }}"  alt="Tablify Logo" class="logo">
+  <h1 class="title">Login to Your Account</h1>
+  
   <form method="POST">
-    <label for="account_id">Account_id:</label><br>
-    <input type="text" name="account_id" required><br><br>
 
-    <label for="password">Password:</label><br>
-    <input type="password" name="password" required><br><br>
+    <label class="type1" for="account_id">Account_id:</label><br>
+    <input class="type1" type="text" name="account_id" required><br><br>
 
-    <button type="submit">Login</button>
+    <label class="type1" for="password">Password:</label><br>
+    <input class="type1" type="password" name="password" required><br><br>
+    <button type="submit" class="type2">Login</button>
   </form>
 
   {% with messages = get_flashed_messages(with_categories=true) %}

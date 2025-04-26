@@ -29,6 +29,13 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    # clear everything in session
+    session.clear()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('login'))
+
     
 @app.route('/-testdb')
 def test_db():
@@ -42,9 +49,15 @@ def test_db():
 
 @app.route('/menu')
 def menu_page():
+    if 'Account_id' not in session:
+        flash('Please sign in first.', 'warning')
+        return redirect(url_for('login'))
+    
+    account_id = session['Account_id'] 
+    
     conn   = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute('SELECT * FROM menuitems')
+    cursor.execute('SELECT * FROM menuitems WHERE Account_id = %s',(account_id,))    
     items  = cursor.fetchall()
     cursor.close(); conn.close()
     return render_template('menu.html', items=items)
@@ -52,19 +65,25 @@ def menu_page():
 
 @app.route('/recipe')
 def recipes_page():
+    if 'Account_id' not in session:
+        flash('Please sign in first.', 'warning')
+        return redirect(url_for('login'))
+    
+    account_id = session['Account_id']
     conn   = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
-    # fetch recipe name + ingredient name via your M:N table
     cursor.execute('''
       SELECT
-        m.Name           AS name,
-        i.Name           AS ingredient
+        m.Name       AS name,
+        i.Name       AS ingredient
       FROM ingredients_for_recipes r
-      JOIN menuitems            m ON r.FoodID       = m.FoodID
-      JOIN ingredients          i ON r.IngredientID = i.IngredientID
+      JOIN menuitems   m ON r.FoodID       = m.FoodID
+      JOIN ingredients i ON r.IngredientID = i.IngredientID
+      WHERE m.Account_id = %s
       ORDER BY m.Name
-    ''')
+    ''', (account_id,))
+
     rows = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -74,14 +93,18 @@ def recipes_page():
     for row in rows:
         grouped.setdefault(row['name'], []).append(row['ingredient'])
 
-    # build list for template
-    recipes = [{'name': name, 'ingredients': ings}
-               for name, ings in grouped.items()]
+    recipes = [{'name': name, 'ingredients': ings} for name, ings in grouped.items()]
 
     return render_template('recipe.html', recipes=recipes)
 
 @app.route('/ingredients')
 def ingredients_page():
+    if 'Account_id' not in session:
+        flash('Please sign in first.', 'warning')
+        return redirect(url_for('login'))
+    
+    account_id = session['Account_id'] 
+    
     conn   = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute('''
@@ -94,7 +117,8 @@ def ingredients_page():
       FROM ingredients i
       JOIN suppliers s
         ON i.SupplierID = s.SupplierID
-    ''')
+        WHERE i.Account_id = %s
+    ''', (account_id,))
     ingredients = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -104,10 +128,6 @@ def ingredients_page():
 @app.route('/tables')
 def tables_page():
     return render_template('tables.html')
-
-@app.route('/signin')
-def signin_page():
-    return render_template('signin.html')
 
 @app.route('/register')
 def register_page():

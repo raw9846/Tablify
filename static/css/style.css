@@ -144,6 +144,10 @@
   color: #555;            
 }
 
+/* ========= log in page =================================*/
+
+
+
 /* ========= background color ========================= */
 html, body {
   height: 100%;
@@ -158,10 +162,41 @@ h1.title {
   font-size: 3em;      
 }
 
-button.menuedit {
+button.type1 {
   display: block;        /* makes margin auto work */
-  margin-left: 92.8%;     /* pushes it as far right as possible */
+  margin-left: 92.8%;     
   padding: 1rem 2rem;
   font-size: 1rem;
   border-radius: 0.25rem;
+}
+
+button.type2 {
+  display: block;        /* makes margin auto work */
+  margin: auto;  
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+}
+
+label.type1 {
+  display: block;        /* makes margin auto work */
+  text-align: center;   
+  padding: 1rem 2rem;
+  font-size: 3rem;
+  border-radius: 0.25rem;
+}
+
+
+input.type1 {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  font-size: 2rem;
+}
+
+img.logo {
+  display: block;      /* make it a block so margins apply */   /* top/bottom 2rem, left/right auto (centers) */
+  width: 20%;     /* optional: keep it responsive */
+  margin: auto;
+  height: auto;
 }

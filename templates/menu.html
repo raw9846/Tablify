@@ -15,16 +15,15 @@
       <li><a href="{{ url_for('recipes_page') }}">Recipes</a></li>
       <li><a href="{{ url_for('ingredients_page') }}">Ingredients</a></li>
       <li><a href="{{ url_for('tables_page') }}">Tables</a></li>
-      <li class="auth"><a href="{{ url_for('signin_page') }}">Sign In</a></li>
-      <li><a href="{{ url_for('register_page') }}">Register</a></li>
+      <li class="auth"><a href="/logout">Sign Out</a></li>
+      <li><a>Logged in as {{session['Account_id']}}</a></li>
     </ul>
   </nav>
 
   <!-- Main content -->
   <main>
     <h1 class="title">Our Menu</h1>
-    <button class="menuedit">Edit</button>
-
+    <button class="type1">Edit</button>
     <div class="menu-grid">
       {% for item in items %}
         <div class="menu-card">
