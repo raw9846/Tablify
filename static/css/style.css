@@ -23,10 +23,7 @@
   margin: 0;
 }
 
-/* push “Sign In/Register” to the right */
-.navbar .auth {
-  margin-left: 78%;
-}
+
 
 /* link styling */
 .navbar a {
@@ -34,6 +31,18 @@
   color: #333;
   font-weight: bold;
 }
+
+.navbar .logo{
+  margin-left: 0rem;
+  max-height: 2em;
+  max-width: 2em;
+  margin-right: 0rem;
+}
+
+.navbar ul li.spacer {
+  margin-left: auto;
+}
+
 
 /* === Menu Card ==================================== */
 .menu-card {
@@ -50,17 +59,16 @@
 
 /* shrink the price text and float it right */
 .menu-card .price {
-  float: right;           /* push to the right */
-  font-size: 2em;       /* smaller than your h2 */
-  color: #666;            /* slightly muted */
-  margin: 0 0 0;     /* a little breathing room at the top */
+  float: right;           
+  font-size: 2em;       
+  color: #666;         
+  margin: 0 0 0;  
 }
 
 /* make sure the food name starts cleanly on the left */
 .menu-card h1 {
   margin: 0;
   padding: 0;
-  font-size: 2.5em;
 }
 
 /* === recipe card =============================*/
@@ -144,10 +152,6 @@
   color: #555;            
 }
 
-/* ========= log in page =================================*/
-
-
-
 /* ========= background color ========================= */
 html, body {
   height: 100%;
@@ -164,16 +168,17 @@ h1.title {
 
 button.type1 {
   display: block;        /* makes margin auto work */
-  margin-left: 92.8%;     
+  margin: auto;     
   padding: 1rem 2rem;
   font-size: 1rem;
   border-radius: 0.25rem;
+  margin-bottom: 2rem;
 }
 
 button.type2 {
   display: block;        /* makes margin auto work */
-  margin: auto;  
-  padding: 1rem 2rem;
+  margin: auto;       
+  padding: 0.5rem 2rem;
   font-size: 1rem;
   border-radius: 0.25rem;
 }
@@ -182,16 +187,17 @@ label.type1 {
   display: block;        /* makes margin auto work */
   text-align: center;   
   padding: 1rem 2rem;
-  font-size: 3rem;
+  font-size: 1.5rem;
+  color: rgb(41, 61, 39);
   border-radius: 0.25rem;
 }
-
 
 input.type1 {
   display: flex;
   justify-content: center;
   margin: auto;
-  font-size: 2rem;
+  margin-top: -1rem;
+  font-size: 1.5rem;
 }
 
 img.logo {
@@ -199,4 +205,31 @@ img.logo {
   width: 20%;     /* optional: keep it responsive */
   margin: auto;
   height: auto;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background: #fff;
+  max-width: 500px;
+  margin: 5% auto;  /* 5% down from top, centered horizontally */
+  padding: 1rem;
+  position: relative;
+  border-radius: 0.25rem;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+#ingredientsList label {
+  display: block;
 }

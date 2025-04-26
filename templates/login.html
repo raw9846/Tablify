@@ -11,15 +11,13 @@
   </style>
 </head>
 <body>
-  
-  <img src="{{ url_for('static', filename='images/Logo.jpg') }}"  alt="Tablify Logo" class="logo">
+  <img src="{{ url_for('static', filename='images/logo.jpg') }}"  alt="Tablify Logo" class="logo" >
   <h1 class="title">Login to Your Account</h1>
   
   <form method="POST">
 
     <label class="type1" for="account_id">Account_id:</label><br>
     <input class="type1" type="text" name="account_id" required><br><br>
-
     <label class="type1" for="password">Password:</label><br>
     <input class="type1" type="password" name="password" required><br><br>
     <button type="submit" class="type2">Login</button>

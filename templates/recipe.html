@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Restaurant Management</title>
+  <title>Recipe View</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <!-- Navigation (use your Flask routes) -->
   <nav class="navbar">
     <ul>
+      <img src="{{ url_for('static', filename='images/logoshort.jpg') }}" alt="Logo" class="logo"/>
       <li><a href="{{ url_for('menu_page') }}">Menu</a></li>
       <li><a href="{{ url_for('recipes_page') }}">Recipes</a></li>
       <li><a href="{{ url_for('ingredients_page') }}">Ingredients</a></li>
       <li><a href="{{ url_for('tables_page') }}">Tables</a></li>
-      <li class="auth"><a href="/logout">Sign Out</a></li>
-      <li><a>Logged in as {{session['Account_id']}}</a></li>
+      <li class="spacer"></li>
+      <li class="auth"><a href="{{ url_for('logout') }}">Sign Out</a></li>
+      <li><span>Logged in as {{ session['Account_id'] }}</span></li>
     </ul>
   </nav>
 
-  <!-- Main content -->
   <main>
     <h1 class="title">Our Menu Recipes</h1>
     <div class="recipe-grid">
@@ -31,7 +31,6 @@
               <li>{{ ing }}</li>
             {% endfor %}
           </ul>
-          <button>Edit</button>
         </div>
       {% endfor %}
     </div>
