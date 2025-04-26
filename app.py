@@ -1,9 +1,35 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from db import get_db_connection  # Import your DB connector
 from collections import OrderedDict
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey123'
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        account_id = request.form['account_id']
+        password = request.form['password']
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM account WHERE Account_id = %s", (account_id,))
+        user = cursor.fetchone()
+        cursor.close()
+        conn.close()
+
+        # Password is plain text (not hashed)
+        if user and user['Password'] == password:
+            session['Account_id'] = user['Account_id']
+            session['restaurant'] = user['RestaurantName']
+            flash('Login successful!', 'success')
+            return redirect(url_for('menu_page'))  # Redirect to menu page
+        else:
+            flash('Invalid credentials. Please try again.', 'danger')
+
+    return render_template('login.html')
+
+    
 @app.route('/-testdb')
 def test_db():
     conn = get_db_connection()
