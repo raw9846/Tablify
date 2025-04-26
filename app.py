@@ -6,6 +6,43 @@ from decimal import Decimal
 app = Flask(__name__)
 app.secret_key = 'supersecretkey123'
 
+@app.route('/register', methods=['GET', 'POST'])
+def register_page():
+    if request.method == 'POST':
+        account_id = request.form['account_id']
+        password = request.form['password']
+        restaurant_name = request.form['restaurant_name']
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Check if account already exists
+        cursor.execute('SELECT * FROM account WHERE Account_id = %s', (account_id,))
+        existing_account = cursor.fetchone()
+
+        if existing_account:
+            flash('Account ID already exists. Please log in.', 'warning')
+            return redirect(url_for('login'))
+
+        # Insert new account
+        try:
+            cursor.execute('''
+                INSERT INTO account (Account_id, Password, RestaurantName)
+                VALUES (%s, %s, %s)
+            ''', (account_id, password, restaurant_name))
+            conn.commit()
+            flash('Registration successful! Please log in.', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            conn.rollback()
+            flash('Error creating account.', 'danger')
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+
+    return render_template('register.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -126,9 +163,8 @@ def ingredients_page():
 def tables_page():
     return render_template('tables.html')
 
-@app.route('/register')
-def register_page():
-    return render_template('register.html')
+#@app.route('/register')
+##   return render_template('register.html')
 
 # ========= EDIT FUNCTION FOR MENU PAGE (prob useful for other pages too) ===========
 
