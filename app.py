@@ -158,10 +158,35 @@ def ingredients_page():
     conn.close()
     return render_template('ingredients.html', ingredients=ingredients)
 
-
 @app.route('/tables')
 def tables_page():
-    return render_template('tables.html')
+    if 'Account_id' not in session:
+        flash('Please sign in first.', 'warning')
+        return redirect(url_for('login'))
+
+    account_id = session['Account_id']
+
+    conn   = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute('''
+        SELECT
+          t.TableID,
+          t.Capacity,
+          t.Availability,
+          t.CustomerID,
+          c.Name AS CustomerName
+        FROM `tables` t
+        LEFT JOIN `customers` c
+          ON t.CustomerID = c.CustomerID
+         AND t.Account_id = c.Account_id
+        WHERE t.Account_id = %s
+        ORDER BY t.TableID
+    ''', (account_id,))
+    tables = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return render_template('tables.html', tables=tables)
 
 #@app.route('/register')
 ##   return render_template('register.html')
