@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from db import get_db_connection  # Import your DB connector
 from collections import OrderedDict
 from decimal import Decimal
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey123'
@@ -11,6 +12,7 @@ def register_page():
     if request.method == 'POST':
         account_id = request.form['account_id']
         password = request.form['password']
+        hashed_password = generate_password_hash(password)
         restaurant_name = request.form['restaurant_name']
 
         conn = get_db_connection()
@@ -29,7 +31,7 @@ def register_page():
             cursor.execute('''
                 INSERT INTO account (Account_id, Password, RestaurantName)
                 VALUES (%s, %s, %s)
-            ''', (account_id, password, restaurant_name))
+            ''', (account_id, hashed_password, restaurant_name))
             conn.commit()
             flash('Registration successful! Please log in.', 'success')
             return redirect(url_for('login'))
@@ -57,7 +59,7 @@ def login():
         conn.close()
 
         # Password is plain text (not hashed)
-        if user and user['Password'] == password:
+        if user and check_password_hash(user['Password'], password):
             session['Account_id'] = user['Account_id']
             session['restaurant'] = user['RestaurantName']
             flash('Login successful!', 'success')

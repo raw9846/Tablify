@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Restaurant Management</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Tables Management</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
 <body>
   <nav class="navbar">
@@ -19,10 +19,11 @@
       <li><span>Logged in as {{ session['Account_id'] }}</span></li>
     </ul>
   </nav>
+
   <main>
-    <h1 class = "title">Tables Management</h1>
+    <h1 class="title">Tables Management</h1>
+    <button id="editTablesBtn" class="type1">Edit Tables</button>
     <div class="tables-grid">
-      <!-- Example menu card -->
       <div class="tables-card">
         <h1>Table 1</h1>
         <ul>
@@ -34,8 +35,78 @@
         </ul>
         <button>Edit</button>
       </div>
-      <!-- Repeat .menu-card as needed -->
+      <!-- Repeat .tables-card for each table as needed -->
     </div>
   </main>
+
+  <div id="tablesModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle">Edit or Add Table</h2>
+      <form id="tablesForm">
+        <input type="hidden" id="tableId"/>
+
+        <label for="tableNumber">Table Number:</label>
+        <input type="number" id="tableNumber" required/>
+
+        <label for="tableSeats">Seats:</label>
+        <input type="number" id="tableSeats" required/>
+
+        <label for="tableStatus">Status:</label>
+        <select id="tableStatus">
+          <option value="Available">Available</option>
+          <option value="Occupied">Occupied</option>
+        </select>
+
+        <label for="currentCustomer">Current Customer:</label>
+        <input type="number" id="currentCustomer" required/>
+
+        <label for="orderNumber">Order #:</label>
+        <input type="text" id="orderNumber"/>
+
+        <label for="paymentStatus">Payment Status:</label>
+        <select id="paymentStatus">
+          <option value="True">True</option>
+          <option value="False">False</option>
+        </select>
+
+        <button type="submit" id="saveTableBtn" class="type2">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('tablesModal');
+    const closeBtn = modal.querySelector('.close');
+    const editBtn = document.getElementById('editTablesBtn');
+
+    function openModal() {
+      modal.style.display = 'block';
+      document.getElementById('modalTitle').textContent = 'Edit or Add Table';
+      document.getElementById('tableId').value = '';
+      document.getElementById('tableNumber').value = '';
+      document.getElementById('tableSeats').value = '';
+      document.getElementById('tableStatus').value = 'Available';
+      document.getElementById('currentCustomer').value = '0';
+      document.getElementById('orderNumber').value = '';
+      document.getElementById('paymentStatus').value = 'True';
+    }
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    editBtn.onclick = openModal;
+    closeBtn.onclick = closeModal;
+    window.onclick = e => { if (e.target === modal) closeModal(); };
+
+    document.getElementById('tablesForm').onsubmit = e => {
+      e.preventDefault();
+      // Handle saving/updating table data (you can hook up API here)
+      closeModal();
+      location.reload(); // temp reload page after submit
+    };
+  </script>
+
 </body>
 </html>
+
